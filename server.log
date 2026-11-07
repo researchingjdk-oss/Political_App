@@ -15,3 +15,6 @@ Starting Flask server on http://0.0.0.0:8000/api/candidates
 127.0.0.1 - - [07/Nov/2026 11:32:07] "GET /api/candidates HTTP/1.1" 200 -
 127.0.0.1 - - [07/Nov/2026 11:54:36] "GET /api/candidates HTTP/1.1" 200 -
 127.0.0.1 - - [07/Nov/2026 11:55:54] "GET /api/candidates HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 12:19:43] "GET /api/candidates HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 12:19:47] "GET /api/candidates HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 12:20:35] "GET /api/candidates HTTP/1.1" 200 -
