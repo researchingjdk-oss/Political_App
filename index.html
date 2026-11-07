@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Candidate & Election Directory</title>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Header / Navigation -->
+  <header class="header">
+    <div class="container header-container">
+      <div class="logo">
+        <i class="fa-solid fa-check-to-slot logo-icon"></i>
+        <div>
+          <h1>VoteLocal</h1>
+          <p class="subtitle">Candidate & Election Directory</p>
+        </div>
+      </div>
+      <div class="location-picker">
+        <i class="fa-solid fa-location-dot loc-icon"></i>
+        <span>Current Area: <strong id="current-location-text">Fishers, IN (Hamilton Co.)</strong></span>
+        <button id="change-loc-btn" class="btn btn-sm btn-outline">Switch City</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="container main-content">
+
+    <!-- Hero / Voter Notice Banner -->
+    <section class="banner">
+      <div class="banner-content">
+        <h2><i class="fa-solid fa-bullhorn"></i> 2026 General Election Hub</h2>
+        <p>Explore official candidates running in your jurisdiction across Federal, State, County, and Municipal levels. Compare platforms, check key voting issues, and manage your personalized candidate watchlist.</p>
+      </div>
+      <div class="banner-actions">
+        <button id="open-watchlist-btn" class="btn btn-secondary">
+          <i class="fa-solid fa-bookmark"></i> My Watchlist (<span id="watchlist-count">0</span>)
+        </button>
+        <button id="open-compare-btn" class="btn btn-accent" disabled>
+          <i class="fa-solid fa-scale-balanced"></i> Compare Selected (<span id="compare-count">0</span>)
+        </button>
+      </div>
+    </section>
+
+    <!-- Filters & Search Section -->
+    <section class="controls-card">
+      <div class="search-bar-wrap">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="search-input" placeholder="Search candidate name, office, or policy key (e.g., Taxes, Education, Infrastructure)...">
+      </div>
+
+      <div class="filters-group">
+        <!-- Level of Government Tabs -->
+        <div class="filter-block">
+          <label class="filter-label">Level of Government:</label>
+          <div class="tab-buttons" id="level-tabs">
+            <button class="tab-btn active" data-level="all">All Levels</button>
+            <button class="tab-btn" data-level="Federal">Federal</button>
+            <button class="tab-btn" data-level="State">State</button>
+            <button class="tab-btn" data-level="County">County</button>
+            <button class="tab-btn" data-level="Municipal">Municipal</button>
+          </div>
+        </div>
+
+        <!-- Party Filter Dropdown -->
+        <div class="filter-block">
+          <label for="party-select" class="filter-label">Party Affiliation:</label>
+          <select id="party-select" class="select-input">
+            <option value="all">All Parties</option>
+            <option value="Republican">Republican</option>
+            <option value="Democratic">Democratic</option>
+            <option value="Libertarian">Libertarian</option>
+            <option value="Independent">Independent</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results Counter & Info -->
+    <div class="results-header">
+      <p id="results-count">Showing 10 candidates</p>
+      <div class="legend">
+        <span class="badge badge-rep"><i class="fa-solid fa-circle"></i> Republican</span>
+        <span class="badge badge-dem"><i class="fa-solid fa-circle"></i> Democratic</span>
+        <span class="badge badge-lib"><i class="fa-solid fa-circle"></i> Libertarian</span>
+        <span class="badge badge-ind"><i class="fa-solid fa-circle"></i> Independent</span>
+      </div>
+    </div>
+
+    <!-- Candidate Cards Grid -->
+    <section id="candidate-grid" class="candidate-grid">
+      <!-- Injected dynamically via JS -->
+    </section>
+
+    <!-- Resources Footer Card -->
+    <section class="resources-section">
+      <h3><i class="fa-solid fa-landmark"></i> Official Voter Resources</h3>
+      <div class="resources-grid">
+        <a href="https://indianavoters.in.gov/" target="_blank" rel="noopener" class="resource-card">
+          <i class="fa-solid fa-id-card"></i>
+          <h4>Check Voter Registration</h4>
+          <p>Verify your voter registration status and find your assigned polling location.</p>
+        </a>
+        <a href="https://www.hamiltoncounty.in.gov/222/Elections" target="_blank" rel="noopener" class="resource-card">
+          <i class="fa-solid fa-box-archive"></i>
+          <h4>Hamilton Co. Elections</h4>
+          <p>View early voting schedules, mail-in ballot applications, and sample ballots.</p>
+        </a>
+        <a href="https://www.vote411.org/" target="_blank" rel="noopener" class="resource-card">
+          <i class="fa-solid fa-globe"></i>
+          <h4>Vote411 Voter Guide</h4>
+          <p>Explore non-partisan candidate questionnaires provided by the League of Women Voters.</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal: Candidate Detail -->
+  <div id="detail-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <button class="modal-close" id="close-detail-modal">&times;</button>
+      <div id="detail-modal-body">
+        <!-- Content filled dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Candidate Comparison -->
+  <div id="compare-modal" class="modal-overlay hidden">
+    <div class="modal-content modal-lg">
+      <button class="modal-close" id="close-compare-modal">&times;</button>
+      <h2><i class="fa-solid fa-scale-balanced"></i> Candidate Head-to-Head Comparison</h2>
+      <div id="compare-modal-body" class="compare-grid">
+        <!-- Comparison content filled dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Drawer: Watchlist -->
+  <div id="watchlist-drawer" class="drawer-overlay hidden">
+    <div class="drawer">
+      <div class="drawer-header">
+        <h3><i class="fa-solid fa-bookmark"></i> Saved Candidate Watchlist</h3>
+        <button class="drawer-close" id="close-watchlist-drawer">&times;</button>
+      </div>
+      <div class="drawer-body" id="watchlist-body">
+        <!-- Watchlist items filled dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- JS Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
